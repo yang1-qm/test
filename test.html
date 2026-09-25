@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>山海经·神兽心理测试</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      background: #1a2a2b;
+      background-image: radial-gradient(circle at 20% 30%, #2c3e3a 0%, #0f1a18 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      color: #e9e0c7;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 480px;
+      background: #1e2b29;
+      border-radius: 36px 36px 28px 28px;
+      box-shadow: 0 20px 30px rgba(0,0,0,0.7), inset 0 1px 4px rgba(255,215,120,0.2);
+      border: 1px solid #6b5a3e;
+      padding: 24px 20px 28px;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(2px);
+    }
+
+    h1, h2, h3 {
+      font-weight: 400;
+      letter-spacing: 2px;
+      color: #f3e6c9;
+      text-shadow: 0 2px 4px #00000050;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      text-align: center;
+      margin-bottom: 8px;
+      font-family: 'Times New Roman', 'Songti SC', serif;
+      color: #efd9a6;
+      border-bottom: 1px dashed #b99b6b;
+      padding-bottom: 12px;
+    }
+
+    .subhead {
+      text-align: center;
+      font-size: 1rem;
+      color: #bdafa0;
+      margin-bottom: 24px;
+      font-style: italic;
+    }
+
+    .start-card {
+      text-align: center;
+      padding: 8px 0;
+    }
+
+    .start-card p {
+      margin: 18px 0;
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: #dacfaf;
+    }
+
+    .start-card .hint {
+      font-size: 0.9rem;
+      color: #b8a78b;
+      background: #2b3a36;
+      padding: 12px;
+      border-radius: 40px;
+      border: 1px solid #5e734b;
+    }
+
+    button {
+      background: #c9a86c;
+      border: none;
+      color: #1f2a26;
+      font-weight: 600;
+      font-size: 1.2rem;
+      padding: 16px 24px;
+      border-radius: 60px;
+      width: 100%;
+      letter-spacing: 2px;
+      box-shadow: 0 8px 0 #6e4f2b, 0 10px 18px #00000050;
+      transition: all 0.1s ease;
+      cursor: pointer;
+      font-family: inherit;
+      border: 1px solid #e6d6a8;
+      margin-top: 20px;
+    }
+
+    button:active {
+      transform: translateY(5px);
+      box-shadow: 0 3px 0 #6e4f2b, 0 8px 16px #00000050;
+    }
+
+    button.secondary {
+      background: #495f55;
+      color: #f0e6d2;
+      box-shadow: 0 5px 0 #26332e, 0 8px 12px #00000040;
+      font-size: 1rem;
+      padding: 12px 20px;
+      margin-top: 10px;
+    }
+
+    .progress-container {
+      margin: 0 0 16px 0;
+    }
+
+    .progress-text {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      color: #cbb98b;
+      margin-bottom: 6px;
+      padding: 0 4px;
+    }
+
+    .progress-bar-bg {
+      background: #2a3a35;
+      height: 8px;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid #5b6e5b;
+    }
+
+    .progress-fill {
+      background: linear-gradient(90deg, #dbb86a, #f5e6b0);
+      width: 0%;
+      height: 100%;
+      border-radius: 20px;
+      transition: width 0.3s ease;
+      box-shadow: 0 0 8px #f5e6b0;
+    }
+
+    .question {
+      background: #24332f;
+      border-radius: 24px;
+      padding: 20px 16px;
+      margin: 18px 0 14px;
+      border-left: 6px solid #bfa46b;
+      box-shadow: inset 0 1px 8px #00000055, 0 6px 12px #00000040;
+    }
+
+    .question p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 18px;
+      color: #f3e9d2;
+    }
+
+    .option {
+      display: block;
+      background: #1f2d29;
+      border-radius: 40px;
+      padding: 14px 18px;
+      margin-bottom: 10px;
+      border: 1px solid #5c6e5a;
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #e2d8bf;
+      transition: all 0.15s;
+      cursor: pointer;
+      user-select: none;
+      word-break: break-word;
+    }
+
+    .option.selected {
+      background: #5c6b4b;
+      border-color: #e6cf8a;
+      color: #ffffff;
+      box-shadow: 0 0 12px #c9a86c;
+      font-weight: 500;
+    }
+
+    .option:active {
+      background: #3d4e42;
+    }
+
+    .result-section {
+      text-align: left;
+    }
+
+    .beast-card {
+      background: #1f2b28;
+      padding: 18px 18px 12px;
+      border-radius: 28px;
+      border: 2px solid #b99b6b;
+      margin: 16px 0;
+      box-shadow: 0 10px 16px #00000050;
+    }
+
+    .beast-name {
+      font-size: 2rem;
+      font-weight: 600;
+      font-family: 'Times New Roman', serif;
+      color: #f5d78c;
+      text-align: center;
+      letter-spacing: 6px;
+      margin-bottom: 6px;
+      text-shadow: 0 0 10px #dbb86a80;
+    }
+
+    .beast-title {
+      font-size: 1.1rem;
+      text-align: center;
+      color: #cfb587;
+      font-style: italic;
+      margin-bottom: 20px;
+      border-bottom: 1px dashed #8b7a5c;
+      padding-bottom: 10px;
+    }
+
+    .detail-item {
+      margin: 14px 0;
+    }
+
+    .detail-item .label {
+      font-size: 0.85rem;
+      color: #b6a889;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .detail-item .value {
+      font-size: 1.15rem;
+      color: #f0e3c6;
+      line-height: 1.5;
+      margin-top: 4px;
+    }
+
+    .entertainment-note {
+      background: #2a1f1a;
+      border: 1px solid #7a6a4b;
+      border-radius: 40px;
+      padding: 14px 16px;
+      font-size: 0.9rem;
+      color: #cbbea2;
+      text-align: center;
+      margin: 20px 0 6px;
+      letter-spacing: 1px;
+      box-shadow: inset 0 0 8px #00000030;
+    }
+
+    .entertainment-note strong {
+      color: #e9cf8f;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .footer-note {
+      font-size: 0.75rem;
+      text-align: center;
+      color: #8b7f6c;
+      margin-top: 16px;
+    }
+
+    .error-msg {
+      color: #dc9c8c;
+      font-size: 0.9rem;
+      text-align: center;
+      margin-top: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app" id="app">
+    <!-- 开始页 -->
+    <div id="startScreen">
+      <h1>山海经·神兽</h1>
+      <div class="subhead">测测你在山海经里是哪种神兽</div>
+      <div class="start-card">
+        <p>🌿 凭第一直觉选择，不要反复纠结。<br>🐉 10道题，揭晓你的上古身份。</p>
+        <div class="hint">✨ 所有结论仅供娱乐 ✨<br>不收集任何个人信息</div>
+        <button id="startBtn">开始测试</button>
+      </div>
+      <div class="footer-note">—— 古籍有灵，以心映照 ——</div>
+    </div>
+
+    <!-- 测试页 (题目区域) -->
+    <div id="quizScreen" class="hidden">
+      <div class="progress-container">
+        <div class="progress-text">
+          <span id="progressLabel">第 1 / 10 题</span>
+          <span id="progressPercent">0%</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div id="progressFill" class="progress-fill" style="width: 0%;"></div>
+        </div>
+      </div>
+
+      <div id="questionContainer" class="question">
+        <!-- 动态渲染题目和选项 -->
+      </div>
+
+      <div id="errorMsg" class="error-msg hidden">请先选择一个选项</div>
+      <button id="submitBtn">提交答案</button>
+      <button id="prevBtn" class="secondary hidden" style="margin-top: 10px;">上一题</button>
+    </div>
+
+    <!-- 结果页 -->
+    <div id="resultScreen" class="hidden result-section">
+      <!-- 动态注入结果内容 -->
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // ---------- 神兽数据 ----------
+      const BEASTS = {
+        '凤凰': {
+          name: '凤凰',
+          birthplace: '丹穴之山。那里有山有水，有歌有舞。',
+          daily: '你不太说话。但你走过的路上，草会长得比别人走过的路齐整一点。你说不清为什么。',
+          identity: '仁德盛世之君'
+        },
+        '白泽': {
+          name: '白泽',
+          birthplace: '昆仑山，有雾的地方。',
+          daily: '你知道很多事情。知道越多，越不想说话。因为你发现，大部分问题不需要答案，只需要时间。',
+          identity: '博古通今的智者'
+        },
+        '九尾狐': {
+          name: '九尾狐',
+          birthplace: '青丘。月光多的地方。',
+          daily: '你习惯站在树上，看下面的人走来走去。你的声音像婴儿哭，所以人们总是回头找你。但你其实只是在叫。',
+          identity: '魅惑众生的妖姬'
+        },
+        '应龙': {
+          name: '应龙·划沟渠的翅膀',
+          birthplace: '南极。',
+          daily: '你不太会“待着”。看见水就想去疏，看见山就想去搬。别人说你辛苦，你说你不觉得。',
+          identity: '功成身退的功臣'
+        },
+        '饕餮': {
+          name: '饕餮',
+          birthplace: '钩吾山。山上多玉，山下多铜。',
+          daily: '你什么都想要。不是因为你贪，是因为你总觉得“再吃一口就饱了”。',
+          identity: '贪得无厌的权贵'
+        },
+        '毕方': {
+          name: '毕方',
+          birthplace: '章莪山。你在哪里，哪里就是你的出生地。',
+          daily: '你只叫自己的名字。不是因为你自恋，是因为你只会这一个词。',
+          identity: '招灾引祸的纵火者'
+        },
+        '穷奇': {
+          name: '穷奇',
+          birthplace: '邦山。后来人们说你住在西北。',
+          daily: '你听人说话。听到“我是对的”，你就想动嘴。不是因为恨，是因为你觉得“对”这个字本身就值得怀疑。',
+          identity: '颠倒是非的恶霸'
+        },
+        '鹿蜀': {
+          name: '鹿蜀',
+          birthplace: '杻阳山。山上有很多歌。',
+          daily: '你唱歌。你的叫声像人在哼小调。你不明白为什么人类觉得“佩你的皮毛就能子孙满堂”。你只是一匹马，白色的头，虎纹，红尾巴。你觉得他们想太多了。',
+          identity: '福泽绵长的善人'
+        },
+        '天狗': {
+          name: '天狗',
+          birthplace: '金门山。有赤犬的地方。',
+          daily: '你看着。你不怎么叫。你的叫声像“榴榴”。有人说你出现就有兵灾。你觉得冤枉。你只是在看家。',
+          identity: '吞噬日月的狂徒'
+        },
+        '当康': {
+          name: '当康',
+          birthplace: '钦山。有猪的地方。',
+          daily: '你拱土。你用鼻子找东西。你叫“当康”。人们听见你叫，就笑。你不太懂他们在笑什么。',
+          identity: '报喜丰年的农夫'
+        }
+      };
+
+      // 题目 & 计分映射 (权重对象)
+      const QUESTIONS = [
+        { // 1
+          text: '你流落到一座南方的山丘上，林中传来婴儿般的啼哭声。循声找去，一只狐狸蹲在树梢，身后拖着九条蓬松的尾巴，月光把它的毛色照得发亮。你的第一反应是：',
+          options: [
+            { text: 'A. 古籍里说这东西“食者不蛊”——它的存在本身就在驱散周围的邪气。', weights: { '九尾狐': 3 } },
+            { text: 'B. 它没有恶意，只是在叫。你坐下来，它也坐下来，隔着一棵树对望。', weights: { '天狗': 2, '当康': 2 } },
+            { text: 'C. 退后两步，记住它的位置，天亮之前离开这片林子。', weights: { '穷奇': 1, '饕餮': 1 } }
+          ]
+        },
+        { // 2
+          text: '一个部落请你主持祭天的仪式。案上摆着青铜鼎，鼎身刻满了一张巨大的兽面，只有头，没有身体。你盯着那张脸看了很久，觉得它想说什么。你会：',
+          options: [
+            { text: 'A. 把鼎里的食物分给族人，说“够了，都吃吧”。', weights: { '凤凰': 2, '当康': 2 } },
+            { text: 'B. 在心里对那张脸说：我知道你饿，但今天不能让你吃。', weights: { '饕餮': 3 } },
+            { text: 'C. 转身问族长：“这张脸是谁？为什么只有头？”', weights: { '白泽': 2, '毕方': 2 } }
+          ]
+        },
+        { // 3
+          text: '深夜你在一片荒野上看见一簇青色的火光。走近才发现那是一只独足的鸟，青羽赤纹，白喙微张，正在对着一片烧焦的林地鸣叫。它的叫声就像在喊自己的名字。它看见你，没有飞走。你会：',
+          options: [
+            { text: 'A. 蹲下来听。你听懂了：它在说“烧过的地方，明年会长出更好的草”。', weights: { '毕方': 3 } },
+            { text: 'B. 把随身的水囊倒在那片焦土上，哪怕只够浇湿一小块。', weights: { '应龙': 2, '鹿蜀': 2 } },
+            { text: 'C. 记住它的位置，回去告诉部落的人：北边有火，别往那边走。', weights: { '天狗': 1 } }
+          ]
+        },
+        { // 4
+          text: '你被邀请参加一场仲裁。两个人争一头牛，一个说牛是他的，一个说牛是部落公有的。你看着他们的眼睛。你：',
+          options: [
+            { text: 'A. 想起了穷奇的故事。传说它专咬有理之人的鼻子，因为“有理的人最不设防”。你突然理解了那种恶，脊背发凉。', weights: { '穷奇': 3 } },
+            { text: 'B. 指着那头牛说：“把它放了。谁追得上，就是谁的。”你只想快点结束这场无聊的争论。', weights: { '饕餮': 1, '混沌': 0 } }, // 混沌不存在，不计分忽略
+            { text: 'C. 说：“先查清楚这头牛是从哪来的。如果是野生的，谁养的归谁。”', weights: { '白泽': 2 } }
+          ]
+        },
+        { // 5
+          text: '你遇见一只浑身雪白的兽，说人话。它告诉你，它知道一万一千五百二十种精怪的名字、形状和弱点。但它只会在“圣人治世”的时候出现。你问它：“现在算吗？”它看着你，没有回答。你会：',
+          options: [
+            { text: 'A. 把它的名字记下来，写在竹片上，传给后人。', weights: { '白泽': 3 } },
+            { text: 'B. 问它：“那你知道我的弱点是什么吗？”', weights: { '穷奇': 2, '九尾狐': 2 } },
+            { text: 'C. 不再追问。它不回答，本身就是一种回答。', weights: { '凤凰': 2, '鹿蜀': 2 } }
+          ]
+        },
+        { // 6
+          text: '洪水来了。你站在高处，看见一条长着双翼的龙从云层中降下，尾巴划过大地，划出一道深深的沟渠，水顺着沟渠流向了东方。你：',
+          options: [
+            { text: 'A. 跑下去，沿着那道沟渠往前走，想看看它到底要引水去哪里。', weights: { '应龙': 3 } },
+            { text: 'B. 站在原地，记住这一幕。你想，以后如果有人问“龙长什么样”，你可以画出来。', weights: { '白泽': 2 } },
+            { text: 'C. 转身回去通知下游的部落：水要来了，往高处搬。', weights: { '天狗': 2, '当康': 2 } }
+          ]
+        },
+        { // 7
+          text: '你在一座山的脚下遇见一头猪形的兽，长着獠牙，正在用鼻子拱土。它看见你，叫了一声，声音就像在喊“当康”。旁边路过的老人笑了：“听见它叫，今年要丰收了。”你会：',
+          options: [
+            { text: 'A. 跟着它走一段，看它在拱什么。也许它能找到水源。', weights: { '当康': 3 } },
+            { text: 'B. 对老人说：“真的吗？那我把这个记下来。”', weights: { '白泽': 2, '鹿蜀': 2 } },
+            { text: 'C. 心里想：它长得这么丑，叫声也不好听，但人们喜欢它。这世界有时候挺公平的。', weights: { '九尾狐': 1, '凤凰': 1 } }
+          ]
+        },
+        { // 8
+          text: '你在一面石壁上看到一幅古老的画：一匹马，白色的头，虎纹的身体，红色的尾巴，正在昂首嘶鸣。旁边刻着一行字：“佩其皮毛，子孙如云。”你会：',
+          options: [
+            { text: 'A. 伸手摸了一下石壁。你想知道，画这匹马的人，是不是真的见过它。', weights: { '白泽': 2, '应龙': 2 } },
+            { text: 'B. 觉得这个寓意真好。不管是不是真的，有人相信“子孙如云”，本身就是一种温柔。', weights: { '鹿蜀': 3 } },
+            { text: 'C. 想：如果它的皮毛真的有用，那它现在还有后代吗？', weights: { '饕餮': 1, '穷奇': 1 } }
+          ]
+        },
+        { // 9
+          text: '你在一场大傩仪式的队伍中看见一只虎形的兽，有翅膀，走在驱疫的队伍里，和其他神兽一起“食蛊”。但你知道它的传说：它最喜欢咬掉有理之人的鼻子。你：',
+          options: [
+            { text: 'A. 觉得这件事很复杂。它一边驱邪，一边作恶。但也许“驱邪”本身就是一种更大的恶？', weights: { '穷奇': 3 } },
+            { text: 'B. 不去想。它走在队伍里，做着该做的事。你只是路过。', weights: { '凤凰': 1, '当康': 1 } },
+            { text: 'C. 问旁边的人：“它和饕餮，哪个更可怕？”', weights: { '白泽': 2 } }
+          ]
+        },
+        { // 10
+          text: '最后一题。你站在一条河边，河对岸有一只五彩的鸟，正在对着水面梳理羽毛。它的每根羽毛上都有花纹：头上是“德”，翅膀上是“义”，背上是“礼”，胸前是“仁”，腹部是“信”。它抬起头，看见了你。你会：',
+          options: [
+            { text: 'A. 对它点头，然后继续走你的路。它出现本身就是一种回答，不需要更多。', weights: { '凤凰': 2 } },
+            { text: 'B. 站在原地看着它。你觉得这片河、这只鸟、这一刻，都不需要语言。', weights: { '凤凰': 3, '鹿蜀': 3 } }, // 注意原题写+3凤凰/鹿蜀，两个都加3？但会冲突，按逻辑这里我设计各+3会导致总分异常，不过为了忠实原描述，两个都+3可能导致凤凰与鹿蜀同分，但在最终判定会按最高。可以调整？用户给的计分确实写“+3 凤凰/鹿蜀”。那就都加3。没问题。
+            { text: 'C. 想：如果每根羽毛都是一种美德，那它活得该有多累。', weights: { '饕餮': 2, '穷奇': 2 } }
+          ]
+        }
+      ];
+
+      // 注意：第10题选项B 权重为凤凰:3, 鹿蜀:3 （尊重原始设定）
+      // 第4题选项B 有混沌:0 但混沌没有神兽，不计入，忽略即可
+
+      // 状态管理
+      let currentIndex = 0;              // 当前题号0-9
+      let userAnswers = new Array(QUESTIONS.length).fill(null); // 存储每道题选择的选项索引 (0/1/2)
+      let scores = {};                  // 累积分数
+
+      // DOM元素
+      const startScreen = document.getElementById('startScreen');
+      const quizScreen = document.getElementById('quizScreen');
+      const resultScreen = document.getElementById('resultScreen');
+      const startBtn = document.getElementById('startBtn');
+      const submitBtn = document.getElementById('submitBtn');
+      const prevBtn = document.getElementById('prevBtn');
+      const questionContainer = document.getElementById('questionContainer');
+      const progressLabel = document.getElementById('progressLabel');
+      const progressPercent = document.getElementById('progressPercent');
+      const progressFill = document.getElementById('progressFill');
+      const errorMsg = document.getElementById('errorMsg');
+
+      // 工具: 初始化分数
+      function resetScores() {
+        scores = {};
+        Object.keys(BEASTS).forEach(key => scores[key] = 0);
+      }
+
+      // 重新开始整个测试
+      function restartTest() {
+        currentIndex = 0;
+        userAnswers = new Array(QUESTIONS.length).fill(null);
+        resetScores();
+        errorMsg.classList.add('hidden');
+        renderQuestion();
+        updateProgress();
+        startScreen.classList.add('hidden');
+        resultScreen.classList.add('hidden');
+        quizScreen.classList.remove('hidden');
+      }
+
+      // 显示开始屏幕
+      function showStart() {
+        startScreen.classList.remove('hidden');
+        quizScreen.classList.add('hidden');
+        resultScreen.classList.add('hidden');
+      }
+
+      // 渲染当前题目
+      function renderQuestion() {
+        const q = QUESTIONS[currentIndex];
+        const selectedIdx = userAnswers[currentIndex]; // null 或者 0/1/2
+
+        let html = `<p>${q.text}</p>`;
+        q.options.forEach((opt, idx) => {
+          const selectedClass = (selectedIdx === idx) ? 'selected' : '';
+          html += `<div class="option ${selectedClass}" data-opt-index="${idx}">${opt.text}</div>`;
+        });
+
+        questionContainer.innerHTML = html;
+
+        // 绑定选项点击
+        document.querySelectorAll('.option').forEach(optEl => {
+          optEl.addEventListener('click', (e) => {
+            const idx = parseInt(optEl.dataset.optIndex, 10);
+            // 移除同组其他选项的 selected
+            document.querySelectorAll('.option').forEach(el => el.classList.remove('selected'));
+            optEl.classList.add('selected');
+            userAnswers[currentIndex] = idx;
+            // 隐藏错误提示
+            errorMsg.classList.add('hidden');
+          });
+        });
+
+        // 显示/隐藏上一题按钮 (第一题隐藏)
+        if (currentIndex === 0) {
+          prevBtn.classList.add('hidden');
+        } else {
+          prevBtn.classList.remove('hidden');
+        }
+
+        // 根据是否已经选过答案，检查显示
+        // (无需额外操作)
+      }
+
+      // 更新进度条
+      function updateProgress() {
+        const total = QUESTIONS.length;
+        const answeredCount = userAnswers.filter(a => a !== null).length; // 已答题数，但进度条按照当前题号显示更直观，但我们可以用已答数，不过根据页码显示当前题
+        const current = currentIndex + 1;
+        progressLabel.textContent = `第 ${current} / ${total} 题`;
+        const percent = Math.round(((current - 1) / total) * 100); // 已完成的题比例，更符合直觉，或使用 (current/total)? 我们使用已答数？
+        // 但感觉用 currentIndex 比例更自然: (currentIndex / total)*100 这样第一题0%，第十题90%
+        // 或者按照 (currentIndex) / total *100 当完成第10题提交后变成100%? 我们在提交后显示结果也行
+        // 使用 (currentIndex / total)*100 但最后一题进度90%，不太理想，可以改用已完成题数？但用户可以随时改上一题。
+        // 就用 (currentIndex / total)*100 吧，但最后一题是90%，提交后到100%在结果页我们不再显示进度。
+        // 更好: 使用 (currentIndex) / total *100 提交后隐藏。
+        const progressValue = (currentIndex) / total * 100;
+        progressFill.style.width = `${progressValue}%`;
+        progressPercent.textContent = `${Math.round(progressValue)}%`;
+      }
+
+      // 计算得分
+      function calculateScores() {
+        resetScores();
+        for (let i = 0; i < QUESTIONS.length; i++) {
+          const optIdx = userAnswers[i];
+          if (optIdx === null) continue; // 理论上全部答完才会调用
+          const opt = QUESTIONS[i].options[optIdx];
+          if (opt && opt.weights) {
+            for (const [beast, weight] of Object.entries(opt.weights)) {
+              if (beast in scores) {
+                scores[beast] = (scores[beast] || 0) + weight;
+              }
+              // 忽略不存在的神兽如混沌
+            }
+          }
+        }
+      }
+
+      // 获取最高分神兽 (如果平局，取第一个遇到的最高分，或者按字母顺序？这里按分数降序，同分按原始BEASTS顺序？我们给个固定优先级)
+      function getTopBeast() {
+        let maxScore = -Infinity;
+        let topBeast = '凤凰'; // 默认
+        // 为了让平局时稍微随机，但固定按对象键顺序？但最好平局时按预设顺序, 我们按BEASTS定义顺序
+        for (const key of Object.keys(BEASTS)) {
+          const score = scores[key] || 0;
+          if (score > maxScore) {
+            maxScore = score;
+            topBeast = key;
+          }
+        }
+        return topBeast;
+      }
+
+      // 提交当前题目 -> 如果是最后一题则计算结果，否则进入下一题
+      function handleSubmit() {
+        // 检查当前题目是否选中选项
+        if (userAnswers[currentIndex] === null) {
+          errorMsg.classList.remove('hidden');
+          return;
+        }
+        errorMsg.classList.add('hidden');
+
+        if (currentIndex === QUESTIONS.length - 1) {
+          // 最后一题，检查是否全部已答
+          const allAnswered = userAnswers.every(a => a !== null);
+          if (!allAnswered) {
+            // 找到第一个未答题跳转
+            const firstUnanswered = userAnswers.findIndex(a => a === null);
+            if (firstUnanswered !== -1) {
+              currentIndex = firstUnanswered;
+              renderQuestion();
+              updateProgress();
+              errorMsg.textContent = '还有题目未作答';
+              errorMsg.classList.remove('hidden');
+              return;
+            }
+          }
+          // 计算并显示结果
+          calculateScores();
+          const topBeast = getTopBeast();
+          renderResult(topBeast);
+        } else {
+          // 移动到下一题
+          currentIndex++;
+          renderQuestion();
+          updateProgress();
+          errorMsg.classList.add('hidden');
+        }
+      }
+
+      // 上一题
+      function handlePrev() {
+        if (currentIndex > 0) {
+          currentIndex--;
+          renderQuestion();
+          updateProgress();
+          errorMsg.classList.add('hidden');
+        }
+      }
+
+      // 渲染结果页
+      function renderResult(beastKey) {
+        const beast = BEASTS[beastKey];
+        if (!beast) return;
+
+        // 构建结果html
+        const html = `
+          <div class="beast-card">
+            <div class="beast-name">${beast.name}</div>
+            <div class="beast-title">你是：${beast.identity}</div>
+            <div class="detail-item">
+              <div class="label">出生地</div>
+              <div class="value">${beast.birthplace}</div>
+            </div>
+            <div class="detail-item">
+              <div class="label">日常</div>
+              <div class="value">${beast.daily}</div>
+            </div>
+          </div>
+          <div class="entertainment-note">
+            <strong>仅供娱乐，不做任何专业诊断</strong><br>
+            所有结论仅用于娱乐，不收集任何个人信息。
+          </div>
+          <button id="restartBtn" class="secondary" style="margin-top: 16px;">再测一次</button>
+        `;
+
+        resultScreen.innerHTML = html;
+
+        // 隐藏quiz, 显示result
+        quizScreen.classList.add('hidden');
+        startScreen.classList.add('hidden');
+        resultScreen.classList.remove('hidden');
+
+        // 绑定重新开始按钮
+        document.getElementById('restartBtn').addEventListener('click', () => {
+          restartTest();
+        });
+
+        // 可选，把进度条置为100%但在结果页不可见
+      }
+
+      // 事件绑定
+      startBtn.addEventListener('click', () => {
+        restartTest();
+      });
+
+      submitBtn.addEventListener('click', handleSubmit);
+
+      prevBtn.addEventListener('click', handlePrev);
+
+      // 初始化显示开始屏幕
+      showStart();
+
+      // 重置分数
+      resetScores();
+
+    })();
+  </script>
+</body>
+</html>
